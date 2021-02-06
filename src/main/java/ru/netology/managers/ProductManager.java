@@ -1,11 +1,15 @@
 package ru.netology.managers;
 
+import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.repository.ProductRepository;
 
 public class ProductManager {
     private ProductRepository repository = new ProductRepository();
 
+    public ProductManager(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
@@ -23,6 +27,16 @@ public class ProductManager {
 
     public boolean matches(Product product, String search) {
         // ваш код
+        if (product instanceof Book) {
+            Book book = (Book) product;
+            if (book.getName().equalsIgnoreCase(search)) {
+                return true;
+            }
+            if (book.getAuthor().equalsIgnoreCase(search)) {
+                return true;
+            }
+            return false;
+        }
 
     }
 
